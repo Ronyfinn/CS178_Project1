@@ -5,10 +5,10 @@ import boto3
 
 def get_conn():
     return pymysql.connect(
-        host=creds.host,
-        user=creds.user,
-        password=creds.password,
-        db=creds.db,
+        host="projectone.cbiyiwuyi4a4.us-east-1.rds.amazonaws.com",
+        user="admin",
+        password="Mikfinne44!",
+        db="ProjectOneCaffeineLog",
         cursorclass=pymysql.cursors.DictCursor
     )
 
