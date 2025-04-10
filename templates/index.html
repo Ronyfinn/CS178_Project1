@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Caffeine Source Viewer</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caffeine Log</title>
 </head>
 <body>
-    <h1>Caffeine Source Table</h1>
-    <table border="1">
-        <tr>
-            <th>Brand</th>
-            <th>Flavor</th>
-        </tr>
-        {% for row in results %}
-        <tr>
-            <td>{{ row.brand }}</td>
-            <td>{{ row.flavor }}</td>
-        </tr>
+    <h1>Caffeine Source List</h1>
+    <ul>
+        {% for item in results %}
+            <li>{{ item.brand }} - {{ item.flavor }} - ${{ item.cost_per_serving }} per serving, ${{ item.cost_per_100mg }} per 100mg</li>
         {% endfor %}
-    </table>
+    </ul>
 </body>
 </html>
