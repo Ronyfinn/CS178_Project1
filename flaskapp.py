@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
-import creds
+#import creds
 from dbCode import *
 
 app = Flask(__name__)
