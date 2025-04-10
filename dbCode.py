@@ -1,6 +1,6 @@
 import pymysql
 import pymysql.cursors
-import creds
+#import creds
 import boto3
 
 def get_conn():
