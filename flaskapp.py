@@ -12,8 +12,3 @@ def index():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
-def get_list_of_source():
-    query = "SELECT brand, flavor FROM caffeine_source"
-    return execute_query(query)
