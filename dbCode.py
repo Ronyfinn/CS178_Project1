@@ -1,14 +1,14 @@
 import pymysql
 import pymysql.cursors
-#import creds
+import creds
 import boto3
 
 def get_conn():
     return pymysql.connect(
-        host="projectone.cbiyiwuyi4a4.us-east-1.rds.amazonaws.com",
-        user="admin",
-        password="Mikfinne44!",
-        db="ProjectOneCaffeineLog",
+        host=creds.host,
+        user=creds.user,
+        password=creds.password,
+        db=creds.db,
         cursorclass=pymysql.cursors.DictCursor
     )
 
@@ -22,4 +22,8 @@ def execute_query(query, args =()):
         return rows
     finally:
         conn.close()
+
+def get_list_of_source():
+    query = "SELECT brand, flavor FROM caffeine_source"
+    return execute_query(query)
 

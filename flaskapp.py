@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pymysql
-user = "admin"
-password = "Mikfinne44!"
-
+import creds
 from dbCode import *
 
 app = Flask(__name__)
@@ -11,6 +9,10 @@ app = Flask(__name__)
 def index():
     source = get_list_of_source()
     return render_template("index.html", results=source)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
 
 def get_list_of_source():
     query = "SELECT brand, flavor FROM caffeine_source"

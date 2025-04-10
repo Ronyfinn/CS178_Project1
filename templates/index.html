@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Caffeine Source Viewer</title>
+</head>
+<body>
+    <h1>Caffeine Source Table</h1>
+    <table border="1">
+        <tr>
+            <th>Brand</th>
+            <th>Flavor</th>
+        </tr>
+        {% for row in results %}
+        <tr>
+            <td>{{ row.brand }}</td>
+            <td>{{ row.flavor }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
