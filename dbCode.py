@@ -26,21 +26,21 @@ def execute_query(query, args =()):
 def get_list_of_source():
     query = """
         SELECT 
-            log.id AS log_id,
-            log.date,
-            log.time,
-            log.caffeine_mg,
-            log.serving_size,
-            log.effect,
-            log.taste,
-            log.context,
-            source.brand,
-            source.flavor,
-            source.cost_per_serving,
-            source.cost_per_100mg
-        FROM caffeine_log AS log
-        JOIN caffeine_source AS source ON log.source_id = source.id
-        ORDER BY log.date DESC, log.time DESC
+            caffeine_log.id,
+            caffeine_log.date,
+            caffeine_log.time,
+            caffeine_log.caffeine_mg,
+            caffeine_log.serving_size,
+            caffeine_log.effect,
+            caffeine_log.taste,
+            caffeine_log.context,
+            caffeine_source.brand,
+            caffeine_source.flavor,
+            caffeine_source.cost_per_serving,
+            caffeine_source.cost_per_100mg
+        FROM caffeine_log
+        JOIN caffeine_source ON caffeine_log.source_id = caffeine_source.id
+        ORDER BY caffeine_log.date DESC, caffeine_log.time DESC
     """
     return execute_query(query)
 
