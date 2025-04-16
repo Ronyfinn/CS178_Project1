@@ -23,7 +23,7 @@ def execute_query(query, args =()):
     finally:
         conn.close()
 
-def get_list_of_source():
+def get_user_table(email):
     query = """
         SELECT 
             caffeine_log.id,
@@ -40,8 +40,9 @@ def get_list_of_source():
             caffeine_source.cost_per_100mg
         FROM caffeine_log
         JOIN caffeine_source ON caffeine_log.source_id = caffeine_source.id
+        WHERE caffeine_log.user_email = %s
         ORDER BY caffeine_log.date DESC, caffeine_log.time DESC
     """
-    return execute_query(query)
+    return execute_query(query, (email,))
 
 

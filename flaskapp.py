@@ -1,7 +1,7 @@
 import boto3
 from flask import Flask
 from flask import render_template
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_login import login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from boto3.dynamodb.conditions import Key, Attr
@@ -42,6 +42,26 @@ def add_user():
         return redirect(url_for('home'))
     else:
         return render_template('add_user.html')
+    
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+
+        response = users_table.get_item(Key={'user_id': email})
+        user = response.get('Item')
+
+        if user and check_password_hash(user['password'], password):
+            session['email'] = email
+            session['username'] = user['username']  # optional
+            flash('Logged in successfully!', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid email or password.', 'danger')
+
+    return render_template('login.html')
+
 
 @app.route('/delete-user', methods=['GET', 'POST'])
 def delete_user():
@@ -61,10 +81,18 @@ def delete_user():
         return render_template('delete_user.html')
 
 
-@app.route("/index.html")
+'''@app.route("/index.html")
 def index():
     source = get_list_of_source()
-    return render_template("index.html", results=source)
+    return render_template("index.html", results=source)'''
+
+@app.route('/display-logs')
+def display_user_logs():
+    email = session.get('email')
+    logs = get_user_table(email)
+    return render_template("user_logs.html", results=logs)
+
+
 
 
 if __name__ == "__main__":
