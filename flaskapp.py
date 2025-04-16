@@ -54,7 +54,7 @@ def delete_user():
             }
         )
 
-        flash('User deleted successfully', 'warning')
+        flash('User deleted successfully', 'danger')
 
         return redirect(url_for('home'))
     else:
