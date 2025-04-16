@@ -1,9 +1,17 @@
+import boto3
 from flask import Flask
 from flask import render_template
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask_login import login_required, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from boto3.dynamodb.conditions import Key, Attr
 import pymysql
 #import creds
 from dbCode import *
+
+dynamodb = boto3.resource('dynamodb')
+users_table = dynamodb.Table('users')
+caffeine_logs_table = dynamodb.Table('caffeine_logs')
 
 app = Flask(__name__)
 
@@ -12,9 +20,30 @@ app = Flask(__name__)
 def home():
     return render_template('home.html')
 
-@app.route('/add_user')
+@app.route('/add_user', methods=['GET', 'POST'])
 def add_user():
-    return render_template('add_user.html')
+    if request.method == 'POST':
+        username = request.form["username"]
+        email = request.form["email"]
+        password = request.form["password"]
+        hashed_password = generate_password_hash(password) #turns password into random characters to protect it (for security purposes)
+
+        users_table.put_item(
+            Item={
+                "user_id" : email,
+                "username" : username,
+                "email" : email,
+                "password" : hashed_password
+            }
+        )
+
+        flash('User added successfully!', 'success')
+        return redirect(url_for('home'))
+    
+    else:
+
+        return render_template('add_user.html')
+
 
 @app.route("/")
 def index():
