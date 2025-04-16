@@ -43,6 +43,23 @@ def add_user():
     else:
         return render_template('add_user.html')
 
+@app.route('/delete-user', methods=['GET', 'POST'])
+def delete_user():
+    if request.method == 'POST':
+        email = request.form["email"]
+
+        users_table.delete_item(
+            Key={
+                'user_id': email
+            }
+        )
+
+        flash('User deleted successfully', 'warning')
+
+        return redirect(url_for('home'))
+    else:
+        return render_template('delete_user.html')
+
 
 @app.route("/index.html")
 def index():
