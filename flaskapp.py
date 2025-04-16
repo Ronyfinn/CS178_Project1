@@ -21,7 +21,7 @@ app.secret_key = 'your_secret_key'
 def home():
     return render_template('home.html')
 
-@app.route('/add_user', methods=['GET', 'POST'])
+@app.route('/add-user', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
         username = request.form["username"]
