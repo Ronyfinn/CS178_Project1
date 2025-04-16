@@ -50,5 +50,9 @@ def index():
     source = get_list_of_source()
     return render_template("index.html", results=source)
 
+@app.route("/index.html")
+def show_index():
+    return render_template("index.html")
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
