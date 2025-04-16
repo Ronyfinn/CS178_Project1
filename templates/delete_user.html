@@ -8,8 +8,8 @@
 <body>
     <h1>Delete User</h1>
     <form action="{{ url_for('delete_user') }}" method="post">
-        <label for="user_id">Username:</label>
-        <input type="text" id="username" name="username" required><br>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br>
 
         <input type="submit" value="Submit">
     </form>
