@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> 
     <title>Caffeine Log</title>
     <style>
         table {
-            width: 100%;
-            border-collapse: collapse;
+            width: 100%;        /* table Set to 100% of window */
+            border-collapse: collapse;      /* border set to single instead of double border */
         }
         th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
+            border: 1px solid black;        /* table header and cells border is set to black  */
+            padding: 8px;       /* general padding for cleaner look */
+            text-align: center; /* centering table text because I like the look */
         }
         th {
-            background-color: #484599;
-            color: white;
+            background-color: #484599;      /* want a unique theme, header dark purple*/
+            color: white;       /* header text color is white, contrasts table text color*/
         }
     </style>
 </head>
@@ -38,7 +38,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for entry in results %}
+            {% for entry in results %} <!--Starting for loop to enter each entry for each item-->
                 <tr>
                     <td>{{ entry.date }}</td>
                     <td>{{ entry.time }}</td>
@@ -46,13 +46,13 @@
                     <td>{{ entry.flavor }}</td>
                     <td>{{ entry.serving_size }}</td>
                     <td>{{ entry.caffeine_mg }}</td>
-                    <td>${{ '%.2f'|format(entry.cost_per_serving) }}</td>
-                    <td>${{ '%.2f'|format(entry.cost_per_100mg) }}</td>
-                    <td>{{ entry.effect }}/10</td>
-                    <td>{{ entry.taste }}/10</td>
+                    <td>${{ '%.2f' % entry.cost_per_serving }}</td> <!-- % = Format Value | .2 = second decimal place (as in SQL table) | f = float-->
+                    <td>${{ '%.2f' % entry.cost_per_100mg }}</td>
+                    <td>{{ entry.effect }}/10</td> <!-- Shows as a out of 10 scale rating-->
+                    <td>{{ entry.taste }}/10</td> <!-- Same comment as above-->
                     <td>{{ entry.context }}</td>
                 </tr>
-            {% endfor %}
+            {% endfor %} <!--End for loop once all entries are accounted for-->
         </tbody>
     </table>
 </body>
