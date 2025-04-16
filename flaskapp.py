@@ -49,17 +49,21 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        response = users_table.get_item(Key={'user_id': email})
+        response = users_table.get_item(
+            Key={
+                'user_id': email
+            }
+        )
+        
         user = response.get('Item')
 
         if user and check_password_hash(user['password'], password):
             session['email'] = email
-            session['username'] = user['username']  # optional
             flash('Logged in successfully!', 'success')
             return redirect(url_for('home'))
         else:
             flash('Invalid email or password.', 'danger')
-
+            return redirect(url_for('home'))
     return render_template('login.html')
 
 
