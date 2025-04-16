@@ -26,23 +26,22 @@ def add_user():
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
-        hashed_password = generate_password_hash(password) #turns password into random characters to protect it (for security purposes)
+        hashed_password = generate_password_hash(password)
 
         users_table.put_item(
             Item={
-                "user_id" : email,
-                "username" : username,
-                "email" : email,
-                "password" : hashed_password
+                "user_id": email,
+                "username": username,
+                "email": email,
+                "password": hashed_password
             }
         )
 
         flash('User added successfully!', 'success')
         return redirect(url_for('home'))
-    
     else:
-
         return render_template('add_user.html')
+
 
 
 @app.route("/")
