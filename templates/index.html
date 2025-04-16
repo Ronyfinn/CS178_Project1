@@ -9,7 +9,7 @@
     <h1>Caffeine Source List</h1>
     <ul>
         {% for item in results %}
-            <li>{{ item.brand }} - {{ item.flavor }} - ${{ item.cost_per_serving }} per serving, ${{ item.cost_per_100mg }} per 100mg</li>
+            <li>{{ item.brand }} - {{ item.flavor }} - ${{ item.cost_per_serving | float}} per serving, ${{ item.cost_per_100mg | float }} per 100mg</li>
         {% endfor %}
     </ul>
 </body>
