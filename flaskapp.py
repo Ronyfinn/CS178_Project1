@@ -5,6 +5,15 @@ from dbCode import *
 
 app = Flask(__name__)
 
+
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/add_user')
+def add_user():
+    return render_template('add_user.html')
+
 @app.route("/")
 def index():
     source = get_list_of_source()
