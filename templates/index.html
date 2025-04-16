@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Caffeine Log</title>
 </head>
 <body>
-    <h1>Caffeine Source List</h1>
+    <h1>Caffeine Log</h1>
     <ul>
-        {% for item in results %}
-            <li>{{ item['brand'] }} - {{ item['flavor'] }} - ${{ item['cost_per_serving'] | float}} per serving, ${{ item['cost_per_100mg'] | float }} per 100mg</li>
+        {% for entry in results %}
+            <li>
+                {{ entry.date }} – 
+                {{ entry.brand }} {{ entry.flavor }}: 
+                {{ entry.caffeine_mg }}mg – 
+                ${{ '%.2f'|format(entry.cost_per_serving) }}/serving 
+                (${{ '%.2f'|format(entry.cost_per_100mg) }}/100mg)
+                {% if entry.notes %} – Notes: {{ entry.notes }}{% endif %}
+            </li>
         {% endfor %}
     </ul>
 </body>

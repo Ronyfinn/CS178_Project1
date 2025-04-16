@@ -24,6 +24,19 @@ def execute_query(query, args =()):
         conn.close()
 
 def get_list_of_source():
-    query = "SELECT brand, flavor FROM caffeine_source"
+    query = """
+        SELECT 
+            log.id AS log_id,
+            log.date,
+            log.caffeine_mg,
+            log.notes,
+            source.brand,
+            source.flavor,
+            source.cost_per_serving,
+            source.cost_per_100mg
+        FROM caffeine_log AS log
+        JOIN caffeine_source AS source ON log.source_id = source.id
+        ORDER BY log.date DESC
+    """
     return execute_query(query)
 
