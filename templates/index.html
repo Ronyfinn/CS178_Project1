@@ -5,16 +5,17 @@
     <title>Caffeine Log</title>
 </head>
 <body>
-    <h1>Caffeine Log</h1>
+    <h1>Caffeine Log Entries</h1>
     <ul>
         {% for entry in results %}
             <li>
-                {{ entry.date }} – 
-                {{ entry.brand }} {{ entry.flavor }}: 
+                {{ entry.date }} {{ entry.time }} – 
+                {{ entry.brand }} {{ entry.flavor }} ({{ entry.serving_size }}): 
                 {{ entry.caffeine_mg }}mg – 
                 ${{ '%.2f'|format(entry.cost_per_serving) }}/serving 
-                (${{ '%.2f'|format(entry.cost_per_100mg) }}/100mg)
-                {% if entry.notes %} – Notes: {{ entry.notes }}{% endif %}
+                (${{ '%.2f'|format(entry.cost_per_100mg) }}/100mg) –
+                Effect: {{ entry.effect }}/10, Taste: {{ entry.taste }}/10
+                {% if entry.context %} – Context: {{ entry.context }}{% endif %}
             </li>
         {% endfor %}
     </ul>

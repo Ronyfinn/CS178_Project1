@@ -28,15 +28,20 @@ def get_list_of_source():
         SELECT 
             log.id AS log_id,
             log.date,
+            log.time,
             log.caffeine_mg,
-            log.notes,
+            log.serving_size,
+            log.effect,
+            log.taste,
+            log.context,
             source.brand,
             source.flavor,
             source.cost_per_serving,
             source.cost_per_100mg
         FROM caffeine_log AS log
         JOIN caffeine_source AS source ON log.source_id = source.id
-        ORDER BY log.date DESC
+        ORDER BY log.date DESC, log.time DESC
     """
     return execute_query(query)
+
 
