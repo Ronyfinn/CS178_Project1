@@ -38,7 +38,7 @@ def add_user():
             }
         )
 
-        flash('User added successfully!', 'success')
+        flash('User added successfully!', 'Success')
         return redirect(url_for('home'))
     else:
         return render_template('add_user.html')
