@@ -44,7 +44,6 @@ def add_user():
         return render_template('add_user.html')
 
 
-@app.route('')
 @app.route("/index.html")
 def index():
     source = get_list_of_source()
