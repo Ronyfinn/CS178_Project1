@@ -3,21 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Caffeine Log</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
     <h1>Caffeine Log Entries</h1>
-    <ul>
-        {% for entry in results %}
-            <li>
-                {{ entry.date }} {{ entry.time }} – 
-                {{ entry.brand }} {{ entry.flavor }} ({{ entry.serving_size }}): 
-                {{ entry.caffeine_mg }}mg – 
-                ${{ '%.2f'|format(entry.cost_per_serving) }}/serving 
-                (${{ '%.2f'|format(entry.cost_per_100mg) }}/100mg) –
-                Effect: {{ entry.effect }}/10, Taste: {{ entry.taste }}/10
-                {% if entry.context %} – Context: {{ entry.context }}{% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Brand</th>
+                <th>Flavor</th>
+                <th>Serving Size</th>
+                <th>Caffeine (mg)</th>
+                <th>Cost per Serving</th>
+                <th>Cost per 100mg</th>
+                <th>Effect</th>
+                <th>Taste</th>
+                <th>Context</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entry in results %}
+                <tr>
+                    <td>{{ entry.date }}</td>
+                    <td>{{ entry.time }}</td>
+                    <td>{{ entry.brand }}</td>
+                    <td>{{ entry.flavor }}</td>
+                    <td>{{ entry.serving_size }}</td>
+                    <td>{{ entry.caffeine_mg }}</td>
+                    <td>${{ '%.2f'|format(entry.cost_per_serving) }}</td>
+                    <td>${{ '%.2f'|format(entry.cost_per_100mg) }}</td>
+                    <td>{{ entry.effect }}/10</td>
+                    <td>{{ entry.taste }}/10</td>
+                    <td>{{ entry.context }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
