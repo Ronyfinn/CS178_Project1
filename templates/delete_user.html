@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/vapor/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Delete User</h1>
+    <form action="{{ url_for('delete_user') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
