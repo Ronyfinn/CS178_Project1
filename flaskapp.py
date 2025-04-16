@@ -14,6 +14,7 @@ users_table = dynamodb.Table('users')
 caffeine_logs_table = dynamodb.Table('caffeine_logs')
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 
 
 @app.route('/')
