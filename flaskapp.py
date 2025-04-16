@@ -9,7 +9,7 @@ import pymysql
 #import creds
 from dbCode import *
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name = "us-east-1")
 users_table = dynamodb.Table('users')
 caffeine_logs_table = dynamodb.Table('caffeine_logs')
 
