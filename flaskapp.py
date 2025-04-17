@@ -116,7 +116,7 @@ def update_username():
             flash('Please fill in all fields.', 'warning')
             return redirect(url_for('update_username'))
 
-    return render_template('update_user.html')
+    return render_template('update_username.html')
 
 
 
