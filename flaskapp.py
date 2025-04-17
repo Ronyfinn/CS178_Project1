@@ -91,7 +91,8 @@ def index():
     source = get_list_of_source()
     return render_template("index.html", results=source)'''
 
-@app.route('/add-log', methods=['GET', 'POST'])
+# Ensure you're properly inserting into the caffeine_source table and getting the correct source_id.
+
 def add_log():
     if request.method == 'POST':
         date = request.form['date']
@@ -134,7 +135,12 @@ def add_log():
             # Get the new source_id (by querying the last inserted id)
             query = "SELECT LAST_INSERT_ID() AS id"
             result = execute_query(query)
-            source_id = result[0]['id']  # Ensure this is valid
+
+            if result:
+                source_id = result[0]['id']  # Ensure this is valid
+            else:
+                flash('Failed to retrieve source ID after insertion.', 'danger')
+                return redirect(url_for('home'))
 
         # Now insert the log with the valid source_id
         query = """
@@ -152,6 +158,7 @@ def add_log():
         return redirect(url_for('home'))
 
     return render_template('add_log.html')
+
 
 
 
