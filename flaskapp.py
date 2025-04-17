@@ -88,7 +88,7 @@ from dbCode import get_all_logs  # make sure this is imported
 
 @app.route("/display-logs")
 def index():
-    all_logs = get_all_logs()
+    all_logs = get_user_table()
     return render_template("display_log.html", results=all_logs)
 
 
