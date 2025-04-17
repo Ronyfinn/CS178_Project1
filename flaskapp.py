@@ -70,7 +70,7 @@ def login():
 @app.route('/delete-user', methods=['GET', 'POST'])
 def delete_user():
     if request.method == 'POST':
-        email = request.form["email"]
+        email = request.form['email']
 
         users_table.delete_item(
             Key={
@@ -84,11 +84,30 @@ def delete_user():
     else:
         return render_template('delete_user.html')
 
-@app.route("/display-logs")
+@app.route('/display-logs')
 def display_logs():
     all_logs = get_user_table()
     return render_template("display_logs.html", results=all_logs)
 
+@app.route('/update-username', methods=['GET', 'POST'])
+def update_username():
+    if request.method == 'POST':
+        email = request.form['email']
+        new_username = request.form['new_username']
+
+        users_table.update_item(
+            key={
+                'user_id' : email
+            },
+            UpdateExpression='SET username = :newname',
+            ExpressionAttributeValues={
+                ':newname' : new_username
+            }
+        )
+        
+        flash('Username updated successfully!', 'success')
+        return redirect(url_for('home'))
+    return render_template('update_user.html')
 
 
 

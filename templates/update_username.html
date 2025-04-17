@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Username</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/vapor/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Update Your Username</h1>
+    <form action="{{ url_for('update_username') }}" method="post">
+        <label for="email">Email:</label><br>
+        <input type="email" name="email" required><br><br>
+
+        <label for="new_username">New Username:</label><br>
+        <input type="text" name="new_username" required><br><br>
+
+        <input type="submit" value="Update Username">
+    </form>
+</body>
+</html>
