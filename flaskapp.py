@@ -84,18 +84,13 @@ def delete_user():
     else:
         return render_template('delete_user.html')
 
+from dbCode import get_all_logs  # make sure this is imported
 
-@app.route("/index.html")
+@app.route("/display-logs")
 def index():
-    source = get_list_of_source()
-    return render_template("index.html", results=source)
+    all_logs = get_all_logs()
+    return render_template("display_log.html", results=all_logs)
 
-
-@app.route('/display-logs')
-def display_user_logs():
-    email = session.get('email')
-    logs = get_user_table(email)
-    return render_template("user_logs.html", results=logs)
 
 
 
