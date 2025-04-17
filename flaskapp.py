@@ -107,12 +107,13 @@ def add_log():
         cost_per_100mg = request.form['cost_per_100mg']
         email = session['email']
 
+        # ✅ grab user email from session
         email = session.get('email')
         if not email:
             flash('You must be logged in to add a log.', 'danger')
             return redirect(url_for('login'))
 
- # Check if the source exists using execute_query
+        # Check if the source exists using execute_query
         query = """
             SELECT id FROM caffeine_source 
             WHERE brand = %s AND flavor = %s
@@ -120,18 +121,22 @@ def add_log():
         result = execute_query(query, (brand, flavor))
 
         if result:
+            # If source exists, use the existing source_id
             source_id = result[0]['id']
         else:
+            # If source doesn't exist, insert it and get the new source_id
             query = """
                 INSERT INTO caffeine_source (brand, flavor, cost_per_serving, cost_per_100mg)
                 VALUES (%s, %s, %s, %s)
             """
             execute_query(query, (brand, flavor, cost_per_serving, cost_per_100mg))
 
+            # Get the new source_id (by querying the last inserted id)
             query = "SELECT LAST_INSERT_ID() AS id"
             result = execute_query(query)
-            source_id = result[0]['id']
+            source_id = result[0]['id']  # Ensure this is valid
 
+        # Now insert the log with the valid source_id
         query = """
             INSERT INTO caffeine_log (
                 user_email, source_id, date, time, caffeine_mg,
@@ -147,6 +152,7 @@ def add_log():
         return redirect(url_for('home'))
 
     return render_template('add_log.html')
+
 
 
 
