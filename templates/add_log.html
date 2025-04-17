@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Caffeine Log</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/vapor/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Add Caffeine Log</h1>
+    <form action="{{ url_for('add_log') }}" method="post">
+        <label for="date">Date:</label><br>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="time">Time:</label><br>
+        <input type="time" id="time" name="time" required><br>
+
+        <label for="caffeine">Caffeine (mg):</label><br>
+        <input type="number" id="caffeine" name="caffeine" required><br>
+
+        <label for="serving_size">Serving Size:</label><br>
+        <input type="text" id="serving_size" name="serving_size" required><br>
+
+        <label for="effect">Effect (1-10):</label><br>
+        <input type="number" id="effect" name="effect" min="1" max="10" required><br>
+
+        <label for="taste">Taste (1-10):</label><br>
+        <input type="number" id="taste" name="taste" min="1" max="10" required><br>
+
+        <label for="context">Context:</label><br>
+        <input type="text" id="context" name="context" required><br>
+
+        <label for="brand">Brand:</label><br>
+        <input type="text" id="brand" name="brand" required><br>
+
+        <label for="flavor">Flavor:</label><br>
+        <input type="text" id="flavor" name="flavor" required><br>
+
+        <label for="cost_per_serving">Cost Per Serving:</label><br>
+        <input type="number" id="cost_per_serving" name="cost_per_serving" required><br>
+
+        <label for="cost_per_100mg">Cost Per 100mg:</label><br>
+        <input type="number" id="cost_per_100mg" name="cost_per_100mg" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
