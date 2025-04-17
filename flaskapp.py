@@ -112,18 +112,35 @@ def add_log():
             flash('You must be logged in to add a log.', 'danger')
             return redirect(url_for('login'))
 
+ # Check if the source exists using execute_query
         query = """
-            INSERT INTO caffeine_source (brand, flavor, cost_per_serving, cost_per_100mg)
-            VALUES (%s, %s, %s, %s)
+            SELECT id FROM caffeine_source 
+            WHERE brand = %s AND flavor = %s
         """
-        execute_query(query, (brand, flavor, cost_per_serving, cost_per_100mg))
+        result = execute_query(query, (brand, flavor))
+
+        if result:
+            source_id = result[0]['id']
+        else:
+            query = """
+                INSERT INTO caffeine_source (brand, flavor, cost_per_serving, cost_per_100mg)
+                VALUES (%s, %s, %s, %s)
+            """
+            execute_query(query, (brand, flavor, cost_per_serving, cost_per_100mg))
+
+            query = "SELECT LAST_INSERT_ID() AS id"
+            result = execute_query(query)
+            source_id = result[0]['id']
 
         query = """
-            INSERT INTO caffeine_log (user_email, source_id, date, time, caffeine_mg, serving_size, effect, taste, context)
-            VALUES (%s, LAST_INSERT_ID(), %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO caffeine_log (
+                user_email, source_id, date, time, caffeine_mg,
+                serving_size, effect, taste, context
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         execute_query(query, (
-            email, date, time, caffeine_mg, serving_size, effect, taste, context
+            email, source_id, date, time, caffeine_mg,
+            serving_size, effect, taste, context
         ))
 
         flash('Caffeine log added successfully!', 'success')
