@@ -85,54 +85,10 @@ def delete_user():
         return render_template('delete_user.html')
 
 
-'''@app.route("/index.html")
+@app.route("/index.html")
 def index():
     source = get_list_of_source()
-    return render_template("index.html", results=source)'''
-
-@app.route('/add-log', methods=['GET', 'POST'])
-def add_log():
-    if request.method == 'POST':
-        date = request.form['date']
-        time = request.form['time']
-        caffeine_mg = request.form['caffeine']
-        serving_size = request.form['serving_size']
-        effect = request.form['effect']
-        taste = request.form['taste']
-        context = request.form['context']
-        brand = request.form['brand']
-        flavor = request.form['flavor']
-        cost_per_serving = request.form['cost_per_serving']
-        cost_per_100mg = request.form['cost_per_100mg']
-        email = session['email']
-
-        # ✅ grab user email from session
-        email = session.get('email')
-        if not email:
-            flash('You must be logged in to add a log.', 'danger')
-            return redirect(url_for('login'))
-
-        # Insert the new source (brand, flavor, cost per serving, cost per 100mg) into caffeine_source table
-        query = """
-            INSERT INTO caffeine_source (brand, flavor, cost_per_serving, cost_per_100mg)
-            VALUES (%s, %s, %s, %s)
-        """
-        execute_query(query, (brand, flavor, cost_per_serving, cost_per_100mg))
-
-        # Now insert the caffeine log entry with the source_id fetched from last inserted row
-        # The execute_query function doesn’t return the last inserted ID, so we'll have to do that in the query
-        query = """
-            INSERT INTO caffeine_log (user_email, source_id, date, time, caffeine_mg, serving_size, effect, taste, context)
-            VALUES (%s, LAST_INSERT_ID(), %s, %s, %s, %s, %s, %s, %s)
-        """
-        execute_query(query, (
-            email, date, time, caffeine_mg, serving_size, effect, taste, context
-        ))
-
-        flash('Caffeine log added successfully!', 'success')
-        return redirect(url_for('home'))
-
-    return render_template('add_log.html')
+    return render_template("index.html", results=source)
 
 
 @app.route('/display-logs')
