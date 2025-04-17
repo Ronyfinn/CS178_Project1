@@ -92,6 +92,8 @@ def index():
     return render_template("index.html", results=source)'''
 
 # Ensure you're properly inserting into the caffeine_source table and getting the correct source_id.
+@app.route('/add-log', methods=['GET', 'POST'])
+# Ensure you're properly inserting into the caffeine_source table and getting the correct source_id.
 
 def add_log():
     if request.method == 'POST':
@@ -158,8 +160,6 @@ def add_log():
         return redirect(url_for('home'))
 
     return render_template('add_log.html')
-
-
 
 
 
