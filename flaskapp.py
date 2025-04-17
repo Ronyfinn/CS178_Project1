@@ -92,21 +92,30 @@ def display_logs():
 @app.route('/update-username', methods=['GET', 'POST'])
 def update_username():
     if request.method == 'POST':
-        email = request.form['email']
-        new_username = request.form['new_username']
+        try:
+            email = request.form['email']
+            new_username = request.form['new_username']
 
-        users_table.update_item(
-            key={
-                'user_id' : email
-            },
-            UpdateExpression='SET username = :newname',
-            ExpressionAttributeValues={
-                ':newname' : new_username
-            }
-        )
-        
-        flash('Username updated successfully!', 'success')
-        return redirect(url_for('home'))
+            if not email or not new_username: #Need to actually raise error instead of saying "Error" like in MoviesInterface.py
+                raise ValueError
+
+            users_table.update_item(
+                Key={
+                    'user_id': email
+                },
+                UpdateExpression='SET username = :newname',
+                ExpressionAttributeValues={
+                    ':newname': new_username
+                }
+            )
+
+            flash('Username updated successfully!', 'success')
+            return redirect(url_for('home'))
+
+        except ValueError:
+            flash('Please fill in all fields.', 'warning')
+            return redirect(url_for('update_username'))
+
     return render_template('update_user.html')
 
 
